@@ -15,7 +15,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ListarClienteActivity"></activity>
+        <activity android:name=".ListarClienteActivity" />
+        <activity android:name=".DetalheClienteActivity"></activity>
     </application>
 
 </manifest>

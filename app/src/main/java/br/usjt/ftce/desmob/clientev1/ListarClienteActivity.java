@@ -3,6 +3,8 @@ package br.usjt.ftce.desmob.clientev1;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -11,18 +13,30 @@ import java.util.ArrayList;
 public class ListarClienteActivity extends AppCompatActivity {
     ListView listView;
     ArrayList<String> lista;
+    public static final String NOME = "package br.usjt.ftce.desmob.clientev1.nome";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listar_cliente);
         listView = (ListView)findViewById(R.id.lista_de_cliente);
-        Intent intent = getIntent();
+        final Intent intent = getIntent();
         String chave = intent.getStringExtra(MainActivity.CHAVE);
         lista = buscarCliente(chave);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, lista);
         listView.setAdapter(adapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent1 = new Intent(ListarClienteActivity.this, DetalheClienteActivity.class);
+                intent1.putExtra(NOME, lista.get(i));
+                startActivity(intent1);
+            }
+        });
     }
+
 
     private ArrayList<String> listaDeCliente(){
         ArrayList<String> clientes =  new ArrayList<>();
